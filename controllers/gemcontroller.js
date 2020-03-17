@@ -7,9 +7,11 @@ const Gem = require('../db').import('../models/gem');
 router.post('/', (req, res) => {
     const gemFromRequest = {
         locationType : req.body.locationType,
-        description : req.body.description,
+        locationAddress : req.body.locationAddress,
         locationCoordinates : req.body.locationCoordinates,
-        owner : req.user.id
+        description : req.body.description,
+        owner : req.user.id,
+        userId: req.user.id
     } 
 
    Gem.create(gemFromRequest)
@@ -23,8 +25,9 @@ router.post('/', (req, res) => {
 router.get('/', (req, res) => {
     console.log(req.user.id)
     Gem.findAll({
-        where: {
-            owner: req.user.id}
+    //     where: {
+    //         owner: req.user.id}
+    // }
     })
         .then(gem => res.status(200).json(gem))
         .catch(err => res.status(500).json({
@@ -49,7 +52,8 @@ router.get('/:id', (req, res) => {
 router.put('/:id', (req, res) =>{
     Gem.update(req.body, {
         where: {
-            id: req.params.id
+            id: req.params.id,
+            userId: req.user.id
         }
     })
     .then(gem => res.status(200).json(gem))
@@ -60,7 +64,8 @@ router.put('/:id', (req, res) =>{
 router.delete('/:id', (req, res) => {
     Gem.destroy({
         where: {
-            id: req.params.id
+            id: req.params.id,
+            userId: req.user.id
         }
     })
     .then(gem => res.status(200).json(gem))

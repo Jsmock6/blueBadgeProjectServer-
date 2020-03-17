@@ -10,7 +10,7 @@ const user = require("./controllers/usercontroller");
 
 //db import & sync
 const sequelize = require('./db');
-sequelize.sync({});
+sequelize.sync();
 app.use(express.json());
 
 //middleware

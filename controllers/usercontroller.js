@@ -6,7 +6,7 @@ const jwt = require('jsonwebtoken');
 router.post('/user', (req, res) => {
     User.create({
         username: req.body.username,
-        passwordhash: bcrypt.hashSync(req.body.passwordhash, 10)
+        passwordhash: bcrypt.hashSync(req.body.passwordhash, 10),
     })
     .then(
         createSuccess = (user) => {
